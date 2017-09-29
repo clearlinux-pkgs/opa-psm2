@@ -1,0 +1,12 @@
+libpsm2.so.2:PSM2_1.0
+libpsm2.so.2:hfi_cmd_write
+libpsm2.so.2:hfi_context_close
+libpsm2.so.2:hfi_context_open
+libpsm2.so.2:hfi_get_mylabel
+libpsm2.so.2:hfi_get_port_lid
+libpsm2.so.2:hfi_get_port_vl2mtu
+libpsm2.so.2:hfi_mmap64
+libpsm2.so.2:hfi_poll_type
+libpsm2.so.2:hfi_set_mylabel
+libpsm2.so.2:hfi_userinit
+libpsm2.so.2:hfi_wait_for_packet
