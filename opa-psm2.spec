@@ -4,7 +4,7 @@
 #
 Name     : opa-psm2
 Version  : 2.10.2.260
-Release  : 3
+Release  : 4
 URL      : https://github.com/intel/opa-psm2/archive/PSM2_10.2-260.tar.gz
 Source0  : https://github.com/intel/opa-psm2/archive/PSM2_10.2-260.tar.gz
 Summary  : No detailed summary available
