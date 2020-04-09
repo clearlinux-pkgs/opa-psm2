@@ -4,12 +4,13 @@
 #
 Name     : opa-psm2
 Version  : 10.2.260
-Release  : 5
+Release  : 6
 URL      : https://github.com/intel/opa-psm2/archive/PSM2_10.2-260.tar.gz
 Source0  : https://github.com/intel/opa-psm2/archive/PSM2_10.2-260.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause Intel
+Requires: opa-psm2-config = %{version}-%{release}
 Requires: opa-psm2-lib = %{version}-%{release}
 Requires: opa-psm2-license = %{version}-%{release}
 BuildRequires : numactl-dev
@@ -17,6 +18,14 @@ BuildRequires : numactl-dev
 %description
 This file is provided under a dual BSD/GPLv2 license.  When using or
 redistributing this file, you may do so under either license.
+
+%package config
+Summary: config components for the opa-psm2 package.
+Group: Default
+
+%description config
+config components for the opa-psm2 package.
+
 
 %package dev
 Summary: dev components for the opa-psm2 package.
@@ -48,41 +57,44 @@ license components for the opa-psm2 package.
 
 %prep
 %setup -q -n opa-psm2-PSM2_10.2-260
+cd %{_builddir}/opa-psm2-PSM2_10.2-260
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565059532
+export SOURCE_DATE_EPOCH=1586442884
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 
 %install
-export SOURCE_DATE_EPOCH=1565059532
+export SOURCE_DATE_EPOCH=1586442884
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/opa-psm2
-cp COPYING %{buildroot}/usr/share/package-licenses/opa-psm2/COPYING
-cp debian/copyright %{buildroot}/usr/share/package-licenses/opa-psm2/debian_copyright
-%make_install
+cp %{_builddir}/opa-psm2-PSM2_10.2-260/COPYING %{buildroot}/usr/share/package-licenses/opa-psm2/cdb192950ba4b6e8332c650f9abeb0a298b2ead0
+cp %{_builddir}/opa-psm2-PSM2_10.2-260/debian/copyright %{buildroot}/usr/share/package-licenses/opa-psm2/339ad9018832c4aa05c8b5847a7ba1d561f18b20
+%make_install UDEVDIR=/usr/lib/udev
 
 %files
 %defattr(-,root,root,-)
-/lib/udev/rules.d/40-psm-compat.rules
-/lib/udev/rules.d/40-psm.rules
 /usr/lib/libpsm2/libpsm2-compat.cmds
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/udev/rules.d/40-psm-compat.rules
+/usr/lib/udev/rules.d/40-psm.rules
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
 /usr/include/hfi1diag/hfi1_deprecated.h
 /usr/include/hfi1diag/linux-x86_64/bit_ops.h
 /usr/include/hfi1diag/linux-x86_64/sysdep.h
@@ -97,6 +109,9 @@ cp debian/copyright %{buildroot}/usr/share/package-licenses/opa-psm2/debian_copy
 /usr/include/hfi1diag/psm2_mock_testing.h
 /usr/include/hfi1diag/psmi_wrappers.h
 /usr/include/hfi1diag/ptl_ips/ipserror.h
+/usr/include/psm2.h
+/usr/include/psm2_am.h
+/usr/include/psm2_mq.h
 /usr/lib64/libpsm2.so
 
 %files lib
@@ -107,5 +122,5 @@ cp debian/copyright %{buildroot}/usr/share/package-licenses/opa-psm2/debian_copy
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/opa-psm2/COPYING
-/usr/share/package-licenses/opa-psm2/debian_copyright
+/usr/share/package-licenses/opa-psm2/339ad9018832c4aa05c8b5847a7ba1d561f18b20
+/usr/share/package-licenses/opa-psm2/cdb192950ba4b6e8332c650f9abeb0a298b2ead0
